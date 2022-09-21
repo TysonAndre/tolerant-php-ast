@@ -4,17 +4,17 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser\Node;
+namespace Phan\TolerantPhpAst\Node;
 
-use Microsoft\PhpParser\Diagnostic;
-use Microsoft\PhpParser\DiagnosticKind;
-use Microsoft\PhpParser\DiagnosticsProvider;
-use Microsoft\PhpParser\FunctionLike;
-use Microsoft\PhpParser\ModifiedTypeInterface;
-use Microsoft\PhpParser\ModifiedTypeTrait;
-use Microsoft\PhpParser\Node;
-use Microsoft\PhpParser\Token;
-use Microsoft\PhpParser\TokenKind;
+use Phan\TolerantPhpAst\Diagnostic;
+use Phan\TolerantPhpAst\DiagnosticKind;
+use Phan\TolerantPhpAst\DiagnosticsProvider;
+use Phan\TolerantPhpAst\FunctionLike;
+use Phan\TolerantPhpAst\ModifiedTypeInterface;
+use Phan\TolerantPhpAst\ModifiedTypeTrait;
+use Phan\TolerantPhpAst\Node;
+use Phan\TolerantPhpAst\Token;
+use Phan\TolerantPhpAst\TokenKind;
 
 class MethodDeclaration extends Node implements FunctionLike, ModifiedTypeInterface {
     use FunctionHeader, FunctionReturnType, FunctionBody, ModifiedTypeTrait;

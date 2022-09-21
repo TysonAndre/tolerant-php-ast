@@ -4,7 +4,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser;
+namespace Phan\TolerantPhpAst;
 
 /**
  * FilePositionMap can be used to get the line number for a large number of nodes (starting from 1).

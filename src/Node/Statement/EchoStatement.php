@@ -4,11 +4,11 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser\Node\Statement;
+namespace Phan\TolerantPhpAst\Node\Statement;
 
-use Microsoft\PhpParser\Node\StatementNode;
-use Microsoft\PhpParser\Node\DelimitedList\ExpressionList;
-use Microsoft\PhpParser\Token;
+use Phan\TolerantPhpAst\Node\StatementNode;
+use Phan\TolerantPhpAst\Node\DelimitedList\ExpressionList;
+use Phan\TolerantPhpAst\Token;
 
 /**
  * This represents either a literal echo statement (`echo expr`)

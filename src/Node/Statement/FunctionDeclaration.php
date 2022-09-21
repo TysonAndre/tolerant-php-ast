@@ -4,15 +4,15 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser\Node\Statement;
+namespace Phan\TolerantPhpAst\Node\Statement;
 
-use Microsoft\PhpParser\FunctionLike;
-use Microsoft\PhpParser\NamespacedNameInterface;
-use Microsoft\PhpParser\NamespacedNameTrait;
-use Microsoft\PhpParser\Node\FunctionBody;
-use Microsoft\PhpParser\Node\FunctionHeader;
-use Microsoft\PhpParser\Node\FunctionReturnType;
-use Microsoft\PhpParser\Node\StatementNode;
+use Phan\TolerantPhpAst\FunctionLike;
+use Phan\TolerantPhpAst\NamespacedNameInterface;
+use Phan\TolerantPhpAst\NamespacedNameTrait;
+use Phan\TolerantPhpAst\Node\FunctionBody;
+use Phan\TolerantPhpAst\Node\FunctionHeader;
+use Phan\TolerantPhpAst\Node\FunctionReturnType;
+use Phan\TolerantPhpAst\Node\StatementNode;
 
 class FunctionDeclaration extends StatementNode implements NamespacedNameInterface, FunctionLike {
     use FunctionHeader, FunctionReturnType, FunctionBody;

@@ -4,9 +4,9 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser;
+namespace Phan\TolerantPhpAst;
 
-use Microsoft\PhpParser\Node;
+use Phan\TolerantPhpAst\Node;
 
 class DiagnosticsProvider {
 
@@ -37,7 +37,7 @@ class DiagnosticsProvider {
 
     /**
      * Returns the diagnostic for $node, or null.
-     * @param \Microsoft\PhpParser\Node|\Microsoft\PhpParser\Token $node
+     * @param \Phan\TolerantPhpAst\Node|\Phan\TolerantPhpAst\Token $node
      * @return Diagnostic|null
      */
     public static function checkDiagnostics($node) {
@@ -88,14 +88,14 @@ class DiagnosticsProvider {
 
     /**
      * Traverses AST to generate diagnostics.
-     * @param \Microsoft\PhpParser\Node $n
+     * @param \Phan\TolerantPhpAst\Node $n
      * @return Diagnostic[]
      */
     public static function getDiagnostics(Node $n) : array {
         $diagnostics = [];
 
         /**
-         * @param \Microsoft\PhpParser\Node|\Microsoft\PhpParser\Token $node
+         * @param \Phan\TolerantPhpAst\Node|\Phan\TolerantPhpAst\Token $node
          */
         $n->walkDescendantNodesAndTokens(function($node) use (&$diagnostics) {
             if (($diagnostic = self::checkDiagnostics($node)) !== null) {

@@ -4,7 +4,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser;
+namespace Phan\TolerantPhpAst;
 
 class ResolvedName {
     private $parts = [];

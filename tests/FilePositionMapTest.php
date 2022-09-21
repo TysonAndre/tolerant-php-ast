@@ -4,10 +4,10 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-use Microsoft\PhpParser\FilePositionMap;
-use Microsoft\PhpParser\LineCharacterPosition;
-use Microsoft\PhpParser\Node;
-use Microsoft\PhpParser\Token;
+use Phan\TolerantPhpAst\FilePositionMap;
+use Phan\TolerantPhpAst\LineCharacterPosition;
+use Phan\TolerantPhpAst\Node;
+use Phan\TolerantPhpAst\Token;
 use PHPUnit\Framework\TestCase;
 
 class FilePositionMapTest extends TestCase {

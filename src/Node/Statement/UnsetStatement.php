@@ -4,11 +4,11 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser\Node\Statement;
+namespace Phan\TolerantPhpAst\Node\Statement;
 
-use Microsoft\PhpParser\Node\DelimitedList;
-use Microsoft\PhpParser\Node\Expression;
-use Microsoft\PhpParser\Token;
+use Phan\TolerantPhpAst\Node\DelimitedList;
+use Phan\TolerantPhpAst\Node\Expression;
+use Phan\TolerantPhpAst\Token;
 
 class UnsetStatement extends Expression {
 

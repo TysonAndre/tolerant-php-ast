@@ -4,14 +4,14 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser\Node\Statement;
+namespace Phan\TolerantPhpAst\Node\Statement;
 
-use Microsoft\PhpParser\Diagnostic;
-use Microsoft\PhpParser\DiagnosticKind;
-use Microsoft\PhpParser\Node;
-use Microsoft\PhpParser\Node\DelimitedList;
-use Microsoft\PhpParser\Node\StatementNode;
-use Microsoft\PhpParser\Token;
+use Phan\TolerantPhpAst\Diagnostic;
+use Phan\TolerantPhpAst\DiagnosticKind;
+use Phan\TolerantPhpAst\Node;
+use Phan\TolerantPhpAst\Node\DelimitedList;
+use Phan\TolerantPhpAst\Node\StatementNode;
+use Phan\TolerantPhpAst\Token;
 
 class NamespaceUseDeclaration extends StatementNode {
     /** @var Token */

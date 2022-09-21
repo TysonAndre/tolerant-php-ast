@@ -4,7 +4,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser;
+namespace Phan\TolerantPhpAst;
 
 // If this predates PHP 7.4, T_COALESCE_EQUAL and T_FN are unavailable.
 // The replacement value is arbitrary - it just has to be different from other values of token constants.
@@ -27,7 +27,7 @@ define(__NAMESPACE__ . '\T_READONLY', defined('T_READONLY') ? constant('T_READON
  * performance (especially when working with Unicode characters.)
  *
  * Class PhpTokenizer
- * @package Microsoft\PhpParser
+ * @package Phan\TolerantPhpAst
  */
 class PhpTokenizer implements TokenStreamProviderInterface {
     public $pos;

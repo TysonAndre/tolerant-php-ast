@@ -4,12 +4,12 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-use Microsoft\PhpParser\Node;
-use Microsoft\PhpParser\Node\SourceFileNode;
-use Microsoft\PhpParser\Node\Statement\FunctionDeclaration;
-use Microsoft\PhpParser\Node\Statement\IfStatementNode;
-use Microsoft\PhpParser\Node\Statement\NamespaceDefinition;
-use Microsoft\PhpParser\Parser;
+use Phan\TolerantPhpAst\Node;
+use Phan\TolerantPhpAst\Node\SourceFileNode;
+use Phan\TolerantPhpAst\Node\Statement\FunctionDeclaration;
+use Phan\TolerantPhpAst\Node\Statement\IfStatementNode;
+use Phan\TolerantPhpAst\Node\Statement\NamespaceDefinition;
+use Phan\TolerantPhpAst\Parser;
 use PHPUnit\Framework\TestCase;
 
 class GetNodeAtPositionTest extends TestCase {
@@ -77,7 +77,7 @@ function a() {
     $a = 3;
 }
 PHP
-        => \Microsoft\PhpParser\Node\Statement\CompoundStatementNode::class,
+        => \Phan\TolerantPhpAst\Node\Statement\CompoundStatementNode::class,
 
         <<<'PHP'
         <?php
@@ -86,7 +86,7 @@ function a() {
     _$a = 3;
 }
 PHP
-        => \Microsoft\PhpParser\Node\Expression\Variable::class,
+        => \Phan\TolerantPhpAst\Node\Expression\Variable::class,
 
         <<<'PHP'
 <?php
@@ -95,7 +95,7 @@ function _a() {
     $a = 3;
 }
 PHP
-        => \Microsoft\PhpParser\Node\Statement\FunctionDeclaration::class
+        => \Phan\TolerantPhpAst\Node\Statement\FunctionDeclaration::class
     );
 
     public function classDataProvider() {

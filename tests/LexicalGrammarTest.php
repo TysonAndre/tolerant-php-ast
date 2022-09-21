@@ -4,7 +4,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-use Microsoft\PhpParser\Token;
+use Phan\TolerantPhpAst\Token;
 use PHPUnit\Framework\Test;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\TestResult;
@@ -45,7 +45,7 @@ class LexicalGrammarTest extends TestCase {
         }
 
         $expectedTokens = str_replace("\r\n", "\n", file_get_contents($expectedTokensFile));
-        $lexer = \Microsoft\PhpParser\TokenStreamProviderFactory::GetTokenStreamProvider($fileContents);
+        $lexer = \Phan\TolerantPhpAst\TokenStreamProviderFactory::GetTokenStreamProvider($fileContents);
         $GLOBALS["SHORT_TOKEN_SERIALIZE"] = true;
         $tokens = str_replace("\r\n", "\n", json_encode($lexer->getTokensArray(), JSON_PRETTY_PRINT));
         $GLOBALS["SHORT_TOKEN_SERIALIZE"] = false;
@@ -74,15 +74,15 @@ class LexicalGrammarTest extends TestCase {
      * @dataProvider lexicalSpecProvider
      */
     public function testSpecTokenClassificationAndLength($testCaseFile, $expectedTokensFile) {
-        $lexer = \Microsoft\PhpParser\TokenStreamProviderFactory::GetTokenStreamProvider(file_get_contents($testCaseFile));
+        $lexer = \Phan\TolerantPhpAst\TokenStreamProviderFactory::GetTokenStreamProvider(file_get_contents($testCaseFile));
         $tokensArray = $lexer->getTokensArray();
         $tokens = str_replace("\r\n", "\n", json_encode($tokensArray, JSON_PRETTY_PRINT));
         file_put_contents($expectedTokensFile, $tokens);
         foreach ($tokensArray as $child) {
             if ($child instanceof Token) {
-                $this->assertNotEquals(\Microsoft\PhpParser\TokenKind::Unknown, $child->kind, "input: $testCaseFile\r\nexpected: $expectedTokensFile");
-                $this->assertNotEquals(\Microsoft\PhpParser\TokenKind::SkippedToken, $child->kind, "input: $testCaseFile\r\nexpected: $expectedTokensFile");
-                $this->assertNotEquals(\Microsoft\PhpParser\TokenKind::MissingToken, $child->kind, "input: $testCaseFile\r\nexpected: $expectedTokensFile");
+                $this->assertNotEquals(\Phan\TolerantPhpAst\TokenKind::Unknown, $child->kind, "input: $testCaseFile\r\nexpected: $expectedTokensFile");
+                $this->assertNotEquals(\Phan\TolerantPhpAst\TokenKind::SkippedToken, $child->kind, "input: $testCaseFile\r\nexpected: $expectedTokensFile");
+                $this->assertNotEquals(\Phan\TolerantPhpAst\TokenKind::MissingToken, $child->kind, "input: $testCaseFile\r\nexpected: $expectedTokensFile");
             }
         }
 //        $tokens = str_replace("\r\n", "\n", json_encode($tokens, JSON_PRETTY_PRINT));

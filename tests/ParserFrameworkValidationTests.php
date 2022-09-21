@@ -4,7 +4,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-use Microsoft\PhpParser\Token;
+use Phan\TolerantPhpAst\Token;
 use PHPUnit\Framework\TestCase;
 
 class ParserFrameworkValidationTests extends TestCase {
@@ -37,7 +37,7 @@ class ParserFrameworkValidationTests extends TestCase {
      */
     public function testFrameworkErrors($testCaseFile, $frameworkName) {
         $fileContents = file_get_contents($testCaseFile);
-        $parser = new \Microsoft\PhpParser\Parser();
+        $parser = new \Phan\TolerantPhpAst\Parser();
         $sourceFile = $parser->parseSourceFile($fileContents);
 
         $directory = __DIR__ . "/output/$frameworkName/";
@@ -52,9 +52,9 @@ class ParserFrameworkValidationTests extends TestCase {
 
         foreach ($sourceFile->getDescendantNodesAndTokens() as $child) {
             if ($child instanceof Token) {
-                $this->assertNotEquals(\Microsoft\PhpParser\TokenKind::Unknown, $child->kind, "input: $testCaseFile\r\nexpected: ");
-                $this->assertNotInstanceOf(\Microsoft\PhpParser\SkippedToken::class, $child, "input: $testCaseFile\r\nexpected: ");
-                $this->assertNotInstanceOf(\Microsoft\PhpParser\MissingToken::class, $child, "input: $testCaseFile\r\nexpected: ");
+                $this->assertNotEquals(\Phan\TolerantPhpAst\TokenKind::Unknown, $child->kind, "input: $testCaseFile\r\nexpected: ");
+                $this->assertNotInstanceOf(\Phan\TolerantPhpAst\SkippedToken::class, $child, "input: $testCaseFile\r\nexpected: ");
+                $this->assertNotInstanceOf(\Phan\TolerantPhpAst\MissingToken::class, $child, "input: $testCaseFile\r\nexpected: ");
             }
         }
 

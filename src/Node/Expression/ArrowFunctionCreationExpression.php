@@ -4,14 +4,14 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser\Node\Expression;
+namespace Phan\TolerantPhpAst\Node\Expression;
 
-use Microsoft\PhpParser\FunctionLike;
-use Microsoft\PhpParser\Node;
-use Microsoft\PhpParser\Node\Expression;
-use Microsoft\PhpParser\Node\FunctionHeader;
-use Microsoft\PhpParser\Node\FunctionReturnType;
-use Microsoft\PhpParser\Token;
+use Phan\TolerantPhpAst\FunctionLike;
+use Phan\TolerantPhpAst\Node;
+use Phan\TolerantPhpAst\Node\Expression;
+use Phan\TolerantPhpAst\Node\FunctionHeader;
+use Phan\TolerantPhpAst\Node\FunctionReturnType;
+use Phan\TolerantPhpAst\Token;
 
 class ArrowFunctionCreationExpression extends Expression implements FunctionLike {
     /** @var Token|null */

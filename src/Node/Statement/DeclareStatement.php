@@ -4,12 +4,12 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser\Node\Statement;
+namespace Phan\TolerantPhpAst\Node\Statement;
 
-use Microsoft\PhpParser\MissingToken;
-use Microsoft\PhpParser\Node\DelimitedList;
-use Microsoft\PhpParser\Node\StatementNode;
-use Microsoft\PhpParser\Token;
+use Phan\TolerantPhpAst\MissingToken;
+use Phan\TolerantPhpAst\Node\DelimitedList;
+use Phan\TolerantPhpAst\Node\StatementNode;
+use Phan\TolerantPhpAst\Token;
 
 class DeclareStatement extends StatementNode {
     /** @var Token */

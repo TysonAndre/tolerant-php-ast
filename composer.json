@@ -1,5 +1,5 @@
 {
-    "name": "microsoft/tolerant-php-parser",
+    "name": "phan/tolerant-php-ast",
     "description": "Tolerant PHP-to-AST parser designed for IDE usage scenarios",
     "type": "library",
     "require": {
@@ -16,6 +16,6 @@
         }
     ],
     "autoload": {
-        "psr-4": { "Microsoft\\PhpParser\\": ["src/"] }
+        "psr-4": { "Phan\\TolerantPHPAst\\": ["src/"] }
     }
 }

@@ -4,18 +4,18 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser\Node;
+namespace Phan\TolerantPhpAst\Node;
 
-use Microsoft\PhpParser\NamespacedNameInterface;
-use Microsoft\PhpParser\NamespacedNameTrait;
-use Microsoft\PhpParser\Node;
-use Microsoft\PhpParser\Node\Expression\AnonymousFunctionCreationExpression;
-use Microsoft\PhpParser\Node\Expression\ArrowFunctionCreationExpression;
-use Microsoft\PhpParser\Node\Expression\CallExpression;
-use Microsoft\PhpParser\Node\Expression\ObjectCreationExpression;
-use Microsoft\PhpParser\ResolvedName;
-use Microsoft\PhpParser\Token;
-use Microsoft\PhpParser\TokenKind;
+use Phan\TolerantPhpAst\NamespacedNameInterface;
+use Phan\TolerantPhpAst\NamespacedNameTrait;
+use Phan\TolerantPhpAst\Node;
+use Phan\TolerantPhpAst\Node\Expression\AnonymousFunctionCreationExpression;
+use Phan\TolerantPhpAst\Node\Expression\ArrowFunctionCreationExpression;
+use Phan\TolerantPhpAst\Node\Expression\CallExpression;
+use Phan\TolerantPhpAst\Node\Expression\ObjectCreationExpression;
+use Phan\TolerantPhpAst\ResolvedName;
+use Phan\TolerantPhpAst\Token;
+use Phan\TolerantPhpAst\TokenKind;
 
 class QualifiedName extends Node implements NamespacedNameInterface {
     use NamespacedNameTrait;

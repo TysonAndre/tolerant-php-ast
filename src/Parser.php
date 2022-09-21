@@ -4,23 +4,23 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser;
+namespace Phan\TolerantPhpAst;
 
 use Closure;
-use Microsoft\PhpParser\Node\AnonymousFunctionUseClause;
-use Microsoft\PhpParser\Node\ArrayElement;
-use Microsoft\PhpParser\Node\Attribute;
-use Microsoft\PhpParser\Node\AttributeGroup;
-use Microsoft\PhpParser\Node\CaseStatementNode;
-use Microsoft\PhpParser\Node\CatchClause;
-use Microsoft\PhpParser\Node\ClassBaseClause;
-use Microsoft\PhpParser\Node\ClassInterfaceClause;
-use Microsoft\PhpParser\Node\ClassMembersNode;
-use Microsoft\PhpParser\Node\ConstElement;
-use Microsoft\PhpParser\Node\EnumCaseDeclaration;
-use Microsoft\PhpParser\Node\EnumMembers;
-use Microsoft\PhpParser\Node\Expression;
-use Microsoft\PhpParser\Node\Expression\{
+use Phan\TolerantPhpAst\Node\AnonymousFunctionUseClause;
+use Phan\TolerantPhpAst\Node\ArrayElement;
+use Phan\TolerantPhpAst\Node\Attribute;
+use Phan\TolerantPhpAst\Node\AttributeGroup;
+use Phan\TolerantPhpAst\Node\CaseStatementNode;
+use Phan\TolerantPhpAst\Node\CatchClause;
+use Phan\TolerantPhpAst\Node\ClassBaseClause;
+use Phan\TolerantPhpAst\Node\ClassInterfaceClause;
+use Phan\TolerantPhpAst\Node\ClassMembersNode;
+use Phan\TolerantPhpAst\Node\ConstElement;
+use Phan\TolerantPhpAst\Node\EnumCaseDeclaration;
+use Phan\TolerantPhpAst\Node\EnumMembers;
+use Phan\TolerantPhpAst\Node\Expression;
+use Phan\TolerantPhpAst\Node\Expression\{
     AnonymousFunctionCreationExpression,
     ArgumentExpression,
     ArrayCreationExpression,
@@ -54,33 +54,33 @@ use Microsoft\PhpParser\Node\Expression\{
     Variable,
     YieldExpression
 };
-use Microsoft\PhpParser\Node\StaticVariableDeclaration;
-use Microsoft\PhpParser\Node\ClassConstDeclaration;
-use Microsoft\PhpParser\Node\DeclareDirective;
-use Microsoft\PhpParser\Node\DelimitedList;
-use Microsoft\PhpParser\Node\ElseClauseNode;
-use Microsoft\PhpParser\Node\ElseIfClauseNode;
-use Microsoft\PhpParser\Node\FinallyClause;
-use Microsoft\PhpParser\Node\ForeachKey;
-use Microsoft\PhpParser\Node\ForeachValue;
-use Microsoft\PhpParser\Node\InterfaceBaseClause;
-use Microsoft\PhpParser\Node\InterfaceMembers;
-use Microsoft\PhpParser\Node\MatchArm;
-use Microsoft\PhpParser\Node\MissingDeclaration;
-use Microsoft\PhpParser\Node\MissingMemberDeclaration;
-use Microsoft\PhpParser\Node\NamespaceAliasingClause;
-use Microsoft\PhpParser\Node\NamespaceUseGroupClause;
-use Microsoft\PhpParser\Node\NumericLiteral;
-use Microsoft\PhpParser\Node\ParenthesizedIntersectionType;
-use Microsoft\PhpParser\Node\PropertyDeclaration;
-use Microsoft\PhpParser\Node\ReservedWord;
-use Microsoft\PhpParser\Node\StringLiteral;
-use Microsoft\PhpParser\Node\MethodDeclaration;
-use Microsoft\PhpParser\Node\Parameter;
-use Microsoft\PhpParser\Node\QualifiedName;
-use Microsoft\PhpParser\Node\RelativeSpecifier;
-use Microsoft\PhpParser\Node\SourceFileNode;
-use Microsoft\PhpParser\Node\Statement\{
+use Phan\TolerantPhpAst\Node\StaticVariableDeclaration;
+use Phan\TolerantPhpAst\Node\ClassConstDeclaration;
+use Phan\TolerantPhpAst\Node\DeclareDirective;
+use Phan\TolerantPhpAst\Node\DelimitedList;
+use Phan\TolerantPhpAst\Node\ElseClauseNode;
+use Phan\TolerantPhpAst\Node\ElseIfClauseNode;
+use Phan\TolerantPhpAst\Node\FinallyClause;
+use Phan\TolerantPhpAst\Node\ForeachKey;
+use Phan\TolerantPhpAst\Node\ForeachValue;
+use Phan\TolerantPhpAst\Node\InterfaceBaseClause;
+use Phan\TolerantPhpAst\Node\InterfaceMembers;
+use Phan\TolerantPhpAst\Node\MatchArm;
+use Phan\TolerantPhpAst\Node\MissingDeclaration;
+use Phan\TolerantPhpAst\Node\MissingMemberDeclaration;
+use Phan\TolerantPhpAst\Node\NamespaceAliasingClause;
+use Phan\TolerantPhpAst\Node\NamespaceUseGroupClause;
+use Phan\TolerantPhpAst\Node\NumericLiteral;
+use Phan\TolerantPhpAst\Node\ParenthesizedIntersectionType;
+use Phan\TolerantPhpAst\Node\PropertyDeclaration;
+use Phan\TolerantPhpAst\Node\ReservedWord;
+use Phan\TolerantPhpAst\Node\StringLiteral;
+use Phan\TolerantPhpAst\Node\MethodDeclaration;
+use Phan\TolerantPhpAst\Node\Parameter;
+use Phan\TolerantPhpAst\Node\QualifiedName;
+use Phan\TolerantPhpAst\Node\RelativeSpecifier;
+use Phan\TolerantPhpAst\Node\SourceFileNode;
+use Phan\TolerantPhpAst\Node\Statement\{
     ClassDeclaration,
     ConstDeclaration,
     CompoundStatementNode,
@@ -110,11 +110,11 @@ use Microsoft\PhpParser\Node\Statement\{
     UnsetStatement,
     WhileStatement
 };
-use Microsoft\PhpParser\Node\TraitMembers;
-use Microsoft\PhpParser\Node\TraitSelectOrAliasClause;
-use Microsoft\PhpParser\Node\TraitUseClause;
-use Microsoft\PhpParser\Node\UseVariableName;
-use Microsoft\PhpParser\Node\NamespaceUseClause;
+use Phan\TolerantPhpAst\Node\TraitMembers;
+use Phan\TolerantPhpAst\Node\TraitSelectOrAliasClause;
+use Phan\TolerantPhpAst\Node\TraitUseClause;
+use Phan\TolerantPhpAst\Node\UseVariableName;
+use Phan\TolerantPhpAst\Node\NamespaceUseClause;
 
 class Parser {
     /** @var TokenStreamProviderInterface */

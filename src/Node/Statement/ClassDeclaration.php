@@ -4,17 +4,17 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser\Node\Statement;
+namespace Phan\TolerantPhpAst\Node\Statement;
 
-use Microsoft\PhpParser\ClassLike;
-use Microsoft\PhpParser\NamespacedNameInterface;
-use Microsoft\PhpParser\NamespacedNameTrait;
-use Microsoft\PhpParser\Node\AttributeGroup;
-use Microsoft\PhpParser\Node\ClassBaseClause;
-use Microsoft\PhpParser\Node\ClassInterfaceClause;
-use Microsoft\PhpParser\Node\ClassMembersNode;
-use Microsoft\PhpParser\Node\StatementNode;
-use Microsoft\PhpParser\Token;
+use Phan\TolerantPhpAst\ClassLike;
+use Phan\TolerantPhpAst\NamespacedNameInterface;
+use Phan\TolerantPhpAst\NamespacedNameTrait;
+use Phan\TolerantPhpAst\Node\AttributeGroup;
+use Phan\TolerantPhpAst\Node\ClassBaseClause;
+use Phan\TolerantPhpAst\Node\ClassInterfaceClause;
+use Phan\TolerantPhpAst\Node\ClassMembersNode;
+use Phan\TolerantPhpAst\Node\StatementNode;
+use Phan\TolerantPhpAst\Token;
 
 class ClassDeclaration extends StatementNode implements NamespacedNameInterface, ClassLike {
     use NamespacedNameTrait;

@@ -4,13 +4,13 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser\Node\Statement;
+namespace Phan\TolerantPhpAst\Node\Statement;
 
-use Microsoft\PhpParser\Node\Expression;
-use Microsoft\PhpParser\Node\ForeachKey;
-use Microsoft\PhpParser\Node\ForeachValue;
-use Microsoft\PhpParser\Node\StatementNode;
-use Microsoft\PhpParser\Token;
+use Phan\TolerantPhpAst\Node\Expression;
+use Phan\TolerantPhpAst\Node\ForeachKey;
+use Phan\TolerantPhpAst\Node\ForeachValue;
+use Phan\TolerantPhpAst\Node\StatementNode;
+use Phan\TolerantPhpAst\Token;
 
 class ForeachStatement extends StatementNode {
     /** @var Token */

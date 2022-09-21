@@ -4,11 +4,11 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser\Node;
+namespace Phan\TolerantPhpAst\Node;
 
-use Microsoft\PhpParser\Node;
-use Microsoft\PhpParser\Node\DelimitedList;
-use Microsoft\PhpParser\Token;
+use Phan\TolerantPhpAst\Node;
+use Phan\TolerantPhpAst\Node\DelimitedList;
+use Phan\TolerantPhpAst\Token;
 
 class NamespaceUseClause extends Node {
     /** @var QualifiedName */

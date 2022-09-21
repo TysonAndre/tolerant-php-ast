@@ -4,7 +4,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser;
+namespace Phan\TolerantPhpAst;
 
 use ReturnTypeWillChange;
 
@@ -94,7 +94,7 @@ class Token implements \JsonSerializable {
     private static function getTokenKindNameFromValueMap() {
         static $mapToKindName;
         if ($mapToKindName === null) {
-            $constants = (new \ReflectionClass("Microsoft\\PhpParser\\TokenKind"))->getConstants();
+            $constants = (new \ReflectionClass(TokenKind::class))->getConstants();
             $mapToKindName = \array_flip($constants);
         }
         return $mapToKindName;

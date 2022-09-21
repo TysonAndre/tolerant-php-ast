@@ -4,13 +4,13 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser;
+namespace Phan\TolerantPhpAst;
 
-use Microsoft\PhpParser\Node\NamespaceUseClause;
-use Microsoft\PhpParser\Node\NamespaceUseGroupClause;
-use Microsoft\PhpParser\Node\SourceFileNode;
-use Microsoft\PhpParser\Node\Statement\NamespaceDefinition;
-use Microsoft\PhpParser\Node\Statement\NamespaceUseDeclaration;
+use Phan\TolerantPhpAst\Node\NamespaceUseClause;
+use Phan\TolerantPhpAst\Node\NamespaceUseGroupClause;
+use Phan\TolerantPhpAst\Node\SourceFileNode;
+use Phan\TolerantPhpAst\Node\Statement\NamespaceDefinition;
+use Phan\TolerantPhpAst\Node\Statement\NamespaceUseDeclaration;
 use ReturnTypeWillChange;
 
 abstract class Node implements \JsonSerializable {

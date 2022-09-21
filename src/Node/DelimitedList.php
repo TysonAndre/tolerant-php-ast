@@ -4,11 +4,11 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser\Node;
+namespace Phan\TolerantPhpAst\Node;
 
-use Microsoft\PhpParser\Node;
-use Microsoft\PhpParser\Token;
-use Microsoft\PhpParser\TokenKind;
+use Phan\TolerantPhpAst\Node;
+use Phan\TolerantPhpAst\Token;
+use Phan\TolerantPhpAst\TokenKind;
 
 abstract class DelimitedList extends Node {
     /** @var Token[]|Node[] */

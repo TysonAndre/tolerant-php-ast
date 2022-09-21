@@ -4,13 +4,13 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser;
+namespace Phan\TolerantPhpAst;
 
-use Microsoft\PhpParser\Node\NamespaceUseClause;
-use Microsoft\PhpParser\Node\NamespaceUseGroupClause;
-use Microsoft\PhpParser\Node\QualifiedName;
-use Microsoft\PhpParser\Node\Statement\NamespaceDefinition;
-use Microsoft\PhpParser\Node\Statement\NamespaceUseDeclaration;
+use Phan\TolerantPhpAst\Node\NamespaceUseClause;
+use Phan\TolerantPhpAst\Node\NamespaceUseGroupClause;
+use Phan\TolerantPhpAst\Node\QualifiedName;
+use Phan\TolerantPhpAst\Node\Statement\NamespaceDefinition;
+use Phan\TolerantPhpAst\Node\Statement\NamespaceUseDeclaration;
 
 trait NamespacedNameTrait {
     public abstract function getNamespaceDefinition();

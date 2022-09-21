@@ -4,12 +4,12 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser\Node\Statement;
+namespace Phan\TolerantPhpAst\Node\Statement;
 
-use Microsoft\PhpParser\Node\QualifiedName;
-use Microsoft\PhpParser\Node\StatementNode;
-use Microsoft\PhpParser\Token;
-use Microsoft\PhpParser\Node\SourceFileNode;
+use Phan\TolerantPhpAst\Node\QualifiedName;
+use Phan\TolerantPhpAst\Node\StatementNode;
+use Phan\TolerantPhpAst\Token;
+use Phan\TolerantPhpAst\Node\SourceFileNode;
 
 /**
  * @property SourceFileNode $parent

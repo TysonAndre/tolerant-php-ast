@@ -4,12 +4,12 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser\Node\Statement;
+namespace Phan\TolerantPhpAst\Node\Statement;
 
-use Microsoft\PhpParser\Node\CatchClause;
-use Microsoft\PhpParser\Node\FinallyClause;
-use Microsoft\PhpParser\Node\StatementNode;
-use Microsoft\PhpParser\Token;
+use Phan\TolerantPhpAst\Node\CatchClause;
+use Phan\TolerantPhpAst\Node\FinallyClause;
+use Phan\TolerantPhpAst\Node\StatementNode;
+use Phan\TolerantPhpAst\Token;
 
 class TryStatement extends StatementNode {
     /** @var Token */

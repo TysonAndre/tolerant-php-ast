@@ -4,10 +4,10 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-use Microsoft\PhpParser\Node;
-use Microsoft\PhpParser\Token;
+use Phan\TolerantPhpAst\Node;
+use Phan\TolerantPhpAst\Token;
 use PHPUnit\Framework\TestCase;
-use Microsoft\PhpParser\TokenKind;
+use Phan\TolerantPhpAst\TokenKind;
 
 class ParserInvariantsTest extends LexerInvariantsTest {
     const FILENAME_PATTERN = __dir__ . "/cases/{parser,parser74,}/*.php";
@@ -17,7 +17,7 @@ class ParserInvariantsTest extends LexerInvariantsTest {
         $testCases = glob(self::FILENAME_PATTERN, GLOB_BRACE);
 
         foreach ($testCases as $filename) {
-            $parser = new \Microsoft\PhpParser\Parser();
+            $parser = new \Phan\TolerantPhpAst\Parser();
             $testFiles[basename($filename)] = [$filename, $parser->parseSourceFile(file_get_contents($filename))];
         }
         return $testFiles;
@@ -28,11 +28,11 @@ class ParserInvariantsTest extends LexerInvariantsTest {
         $testCases = glob(self::FILENAME_PATTERN, GLOB_BRACE);
 
         foreach ($testCases as $filename) {
-            $parser = new \Microsoft\PhpParser\Parser();
+            $parser = new \Phan\TolerantPhpAst\Parser();
             $sourceFileNode = $parser->parseSourceFile(file_get_contents($filename));
             $tokensArray = [];
             foreach ($sourceFileNode->getDescendantNodesAndTokens() as $child) {
-                if ($child instanceof \Microsoft\PhpParser\Token) {
+                if ($child instanceof \Phan\TolerantPhpAst\Token) {
                     $tokensArray[] = $child;
                 }
             }
@@ -78,7 +78,7 @@ class ParserInvariantsTest extends LexerInvariantsTest {
                 foreach ($element->getChildNodesAndTokens() as $child) {
                     if ($child instanceof Node) {
                         $expectedLength += $child->getFullWidth();
-                    } elseif ($child instanceof \Microsoft\PhpParser\Token) {
+                    } elseif ($child instanceof \Phan\TolerantPhpAst\Token) {
                         $expectedLength += $child->length;
                     }
                 }

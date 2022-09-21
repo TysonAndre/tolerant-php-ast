@@ -4,10 +4,10 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser\Node;
+namespace Phan\TolerantPhpAst\Node;
 
-use Microsoft\PhpParser\Node;
-use Microsoft\PhpParser\MissingToken;
+use Phan\TolerantPhpAst\Node;
+use Phan\TolerantPhpAst\MissingToken;
 
 class MissingDeclaration extends Node {
     /** @var AttributeGroup[] */

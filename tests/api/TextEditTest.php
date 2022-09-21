@@ -4,7 +4,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-use Microsoft\PhpParser\TextEdit;
+use Phan\TolerantPhpAst\TextEdit;
 use PHPUnit\Framework\TestCase;
 
 class TextEditTest extends TestCase {

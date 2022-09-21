@@ -4,10 +4,10 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser\Node;
+namespace Phan\TolerantPhpAst\Node;
 
-use Microsoft\PhpParser\Node\Statement\CompoundStatementNode;
-use Microsoft\PhpParser\Token;
+use Phan\TolerantPhpAst\Node\Statement\CompoundStatementNode;
+use Phan\TolerantPhpAst\Token;
 
 trait FunctionBody {
     /** @var CompoundStatementNode|Token */

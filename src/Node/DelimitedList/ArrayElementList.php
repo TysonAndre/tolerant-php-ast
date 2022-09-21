@@ -4,9 +4,9 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser\Node\DelimitedList;
+namespace Phan\TolerantPhpAst\Node\DelimitedList;
 
-use Microsoft\PhpParser\Node\DelimitedList;
+use Phan\TolerantPhpAst\Node\DelimitedList;
 
 class ArrayElementList extends DelimitedList {
 }

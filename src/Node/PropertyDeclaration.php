@@ -4,14 +4,14 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Microsoft\PhpParser\Node;
+namespace Phan\TolerantPhpAst\Node;
 
-use Microsoft\PhpParser\MissingToken;
-use Microsoft\PhpParser\ModifiedTypeInterface;
-use Microsoft\PhpParser\ModifiedTypeTrait;
-use Microsoft\PhpParser\Node;
-use Microsoft\PhpParser\Node\DelimitedList\QualifiedNameList;
-use Microsoft\PhpParser\Token;
+use Phan\TolerantPhpAst\MissingToken;
+use Phan\TolerantPhpAst\ModifiedTypeInterface;
+use Phan\TolerantPhpAst\ModifiedTypeTrait;
+use Phan\TolerantPhpAst\Node;
+use Phan\TolerantPhpAst\Node\DelimitedList\QualifiedNameList;
+use Phan\TolerantPhpAst\Token;
 
 class PropertyDeclaration extends Node implements ModifiedTypeInterface {
     use ModifiedTypeTrait;

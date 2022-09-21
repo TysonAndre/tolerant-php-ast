@@ -4,7 +4,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-use Microsoft\PhpParser\DiagnosticsProvider;
+use Phan\TolerantPhpAst\DiagnosticsProvider;
 use PHPUnit\Framework\Test;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\TestResult;
@@ -56,7 +56,7 @@ class ParserGrammarTest extends TestCase {
             exec("git add " . $expectedDiagnosticsFile);
         }
 
-        $parser = new \Microsoft\PhpParser\Parser();
+        $parser = new \Phan\TolerantPhpAst\Parser();
         $sourceFileNode = $parser->parseSourceFile($fileContents);
 
         $expectedTokens = str_replace("\r\n", "\n", file_get_contents($expectedTokensFile));
@@ -64,7 +64,7 @@ class ParserGrammarTest extends TestCase {
 
         $GLOBALS["SHORT_TOKEN_SERIALIZE"] = true;
         $tokens = str_replace("\r\n", "\n", json_encode($sourceFileNode, JSON_PRETTY_PRINT));
-        $diagnostics = str_replace("\r\n", "\n", json_encode(\Microsoft\PhpParser\DiagnosticsProvider::getDiagnostics($sourceFileNode), JSON_PRETTY_PRINT));
+        $diagnostics = str_replace("\r\n", "\n", json_encode(\Phan\TolerantPhpAst\DiagnosticsProvider::getDiagnostics($sourceFileNode), JSON_PRETTY_PRINT));
         $GLOBALS["SHORT_TOKEN_SERIALIZE"] = false;
 
         $this->tokens = $tokens;
@@ -116,7 +116,7 @@ class ParserGrammarTest extends TestCase {
      * @dataProvider outTreeProvider
      */
     public function testSpecOutputTreeClassificationAndLength($testCaseFile, $expectedTreeFile) {
-        $parser = new \Microsoft\PhpParser\Parser();
+        $parser = new \Phan\TolerantPhpAst\Parser();
         $sourceFile = $parser->parseSourceFile(file_get_contents($testCaseFile));
         $tokens = str_replace("\r\n", "\n", json_encode($sourceFile, JSON_PRETTY_PRINT));
         file_put_contents($expectedTreeFile, $tokens);

@@ -4,9 +4,9 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-use Microsoft\PhpParser\Range;
-use Microsoft\PhpParser\LineCharacterPosition;
-use Microsoft\PhpParser\PositionUtilities;
+use Phan\TolerantPhpAst\Range;
+use Phan\TolerantPhpAst\LineCharacterPosition;
+use Phan\TolerantPhpAst\PositionUtilities;
 use PHPUnit\Framework\TestCase;
 
 class PositionUtilitiesTest extends TestCase {

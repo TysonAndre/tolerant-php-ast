@@ -4,10 +4,10 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-use Microsoft\PhpParser\MissingToken;
-use Microsoft\PhpParser\SkippedToken;
+use Phan\TolerantPhpAst\MissingToken;
+use Phan\TolerantPhpAst\SkippedToken;
 use PHPUnit\Framework\TestCase;
-use Microsoft\PhpParser\TokenKind;
+use Phan\TolerantPhpAst\TokenKind;
 
 class LexerInvariantsTest extends TestCase {
     const FILENAMES = [
@@ -18,7 +18,7 @@ class LexerInvariantsTest extends TestCase {
     public static function tokensArrayProvider() {
         $fileToTokensMap = [];
         foreach (self::FILENAMES as $filename) {
-            $lexer = \Microsoft\PhpParser\TokenStreamProviderFactory::GetTokenStreamProvider(file_get_contents($filename));
+            $lexer = \Phan\TolerantPhpAst\TokenStreamProviderFactory::GetTokenStreamProvider(file_get_contents($filename));
             $fileToTokensMap[basename($filename)] = [$filename, $lexer->getTokensArray()];
         }
         return $fileToTokensMap;
