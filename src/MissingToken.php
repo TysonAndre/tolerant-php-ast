@@ -6,14 +6,12 @@
 
 namespace Phan\TolerantPhpAst;
 
-use ReturnTypeWillChange;
-
 class MissingToken extends Token {
     public function __construct(int $kind, int $fullStart) {
         parent::__construct($kind, $fullStart, $fullStart, 0);
     }
 
-    #[ReturnTypeWillChange]
+    #[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return array_merge(
             ["error" => $this->getTokenKindNameFromValue(TokenKind::MissingToken)],

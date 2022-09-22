@@ -6,8 +6,6 @@
 
 namespace Phan\TolerantPhpAst;
 
-use ReturnTypeWillChange;
-
 use function substr;
 
 class Token implements \JsonSerializable {
@@ -112,7 +110,7 @@ class Token implements \JsonSerializable {
         return $mapToKindName[$kind] ?? $kind;
     }
 
-    #[ReturnTypeWillChange]
+    #[\ReturnTypeWillChange]
     public function jsonSerialize() {
         $kindName = $this->getTokenKindNameFromValue($this->kind);
 

@@ -1645,6 +1645,10 @@ class Parser {
      * @param Node $parentNode
      * @param bool $allowEmptyElements
      * @return DelimitedList|null instance of $className
+     * @template TDelimitedList
+     * @phan-param class-string<TDelimitedList> $className
+     * @phan-return TDelimitedList
+     * @suppress PhanTypeExpectedObjectPropAccess bug with templates
      */
     private function parseDelimitedList($className, $delimiter, $isElementStartFn, $parseElementFn, $parentNode, $allowEmptyElements = false) {
         // TODO consider allowing empty delimiter to be more tolerant
@@ -1746,6 +1750,9 @@ class Parser {
                             ? in_array($token->kind, $this->nameOrReservedWordTokens)
                             : in_array($token->kind, $this->nameOrStaticOrReservedWordTokens);
                     },
+                    /**
+                     * @unused-param $parentNode
+                     */
                     function ($parentNode) {
                         $name = $this->lookahead(TokenKind::BackslashToken)
                             ? $this->eat($this->nameOrReservedWordTokens)
@@ -2238,14 +2245,17 @@ class Parser {
                     $leftOperand,
                     $token,
                     $byRefToken ?? null,
+                    // @phan-suppress-next-line PhanTypeMismatchArgumentProbablyReal deliberately will set parent to $parentNode in the helper
                     $this->parseBinaryExpressionOrHigher($newPrecedence, null),
                     $parentNode);
 
             // Rebuild the unary expression if we deconstructed it earlier.
             if ($shouldOperatorTakePrecedenceOverUnary) {
                 /** @var UnaryOpExpression $unaryExpression */
+                // @phan-suppress-next-line PhanPossiblyUndeclaredVariable set if $shouldOperatorTakePrecedenceOverUnary is true
                 $leftOperand->parent = $unaryExpression;
                 $unaryExpression->operand = $leftOperand;
+                // @phan-suppress-next-line PhanPossiblyUndeclaredVariable
                 $leftOperand = $unaryExpression;
             }
 
@@ -2254,6 +2264,7 @@ class Parser {
             $prevNewPrecedence = $newPrecedence;
             $prevAssociativity = $associativity;
         }
+        // @phan-suppress-next-line PhanTypeMismatchReturnNullable
         return $leftOperand;
     }
 
@@ -2376,7 +2387,7 @@ class Parser {
      * @param Token|null $byRefToken
      * @param Token|Node $rightOperand
      * @param Node $parentNode
-     * @return BinaryExpression|AssignmentExpression
+     * @return UnaryOpExpression|ErrorControlExpression|BinaryExpression|AssignmentExpression
      */
     private function makeBinaryExpression($leftOperand, $operatorToken, $byRefToken, $rightOperand, $parentNode) {
         $assignmentExpression = $operatorToken->kind === TokenKind::EqualsToken;
@@ -3226,6 +3237,8 @@ class Parser {
                 return false;
             }
         }
+        // should be unreachable if isParsingObjectCreationExpression is set.
+        return false;
     }
 
     private $isParsingObjectCreationExpression = false;
@@ -3841,6 +3854,9 @@ class Parser {
     }
 
     private function parseTraitSelectOrAliasClauseFn() {
+        /**
+         * @suppress PhanPossiblyNullTypeMismatchProperty
+         */
         return function ($parentNode) {
             $traitSelectAndAliasClause = new TraitSelectOrAliasClause();
             $traitSelectAndAliasClause->parent = $parentNode;

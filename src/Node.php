@@ -11,7 +11,6 @@ use Phan\TolerantPhpAst\Node\NamespaceUseGroupClause;
 use Phan\TolerantPhpAst\Node\SourceFileNode;
 use Phan\TolerantPhpAst\Node\Statement\NamespaceDefinition;
 use Phan\TolerantPhpAst\Node\Statement\NamespaceUseDeclaration;
-use ReturnTypeWillChange;
 
 abstract class Node implements \JsonSerializable {
     const CHILD_NAMES = [];
@@ -91,7 +90,7 @@ abstract class Node implements \JsonSerializable {
      * Gets first child that is an instance of one of the provided classes.
      * Returns null if there is no match.
      *
-     * @param array ...$classNames
+     * @param string ...$classNames
      * @return Node|null
      */
     public function getFirstChildNode(...$classNames) {
@@ -117,7 +116,7 @@ abstract class Node implements \JsonSerializable {
      * Gets first descendant node that is an instance of one of the provided classes.
      * Returns null if there is no match.
      *
-     * @param array ...$classNames
+     * @param string ...$classNames
      * @return Node|null
      */
     public function getFirstDescendantNode(...$classNames) {
@@ -140,6 +139,7 @@ abstract class Node implements \JsonSerializable {
         while ($node->parent !== null) {
             $node = $node->parent;
         }
+        // @phan-suppress-next-line PhanTypeMismatchReturnSuperType not able to infer type of $node->parent
         return $node;
     }
 
@@ -238,6 +238,7 @@ abstract class Node implements \JsonSerializable {
      * Does not return null elements.
      *
      * @return \Generator|Token[]|Node[]
+     * @phan-return \Generator<Node|Token>
      */
     public function getChildNodesAndTokens() : \Generator {
         foreach ($this::CHILD_NAMES as $name) {
@@ -260,6 +261,7 @@ abstract class Node implements \JsonSerializable {
     /**
      * Gets generator containing all child Nodes (direct descendants)
      * @return \Generator|Node[]
+     * @phan-return \Generator<Node>
      */
     public function getChildNodes() : \Generator {
         foreach ($this::CHILD_NAMES as $name) {
@@ -381,7 +383,7 @@ abstract class Node implements \JsonSerializable {
         return $result;
     }
 
-    #[ReturnTypeWillChange]
+    #[\ReturnTypeWillChange]
     public function jsonSerialize() {
         $kindName = $this->getNodeKindName();
         return ["$kindName" => $this->getChildrenKvPairs()];
@@ -417,7 +419,7 @@ abstract class Node implements \JsonSerializable {
         return $this->getRoot()->fileContents;
     }
 
-    public function getUri() : string {
+    public function getUri() : ?string {
         return $this->getRoot()->uri;
     }
 

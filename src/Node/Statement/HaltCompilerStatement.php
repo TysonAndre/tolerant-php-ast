@@ -6,7 +6,6 @@
 
 namespace Phan\TolerantPhpAst\Node\Statement;
 
-use Phan\TolerantPhpAst\Node\DelimitedList;
 use Phan\TolerantPhpAst\Node\Expression;
 use Phan\TolerantPhpAst\Token;
 

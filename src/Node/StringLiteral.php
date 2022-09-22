@@ -29,6 +29,7 @@ class StringLiteral extends Expression {
         // TODO add tests
         $stringContents = "";
         if (isset($this->startQuote)) {
+            // @phan-suppress-next-line PhanTypeSuspiciousNonTraversableForeach startQuote implies children is an array, not aan object
             foreach ($this->children as $child) {
                 $contents = $this->getFileContents();
                 $stringContents .= $child->getFullText($contents);

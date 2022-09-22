@@ -110,7 +110,7 @@ class MethodDeclaration extends Node implements FunctionLike, ModifiedTypeInterf
 
         $description = [];
 
-        foreach ($commentParts as $i => $part) {
+        foreach ($commentParts as $part) {
             $part = trim($part, "*\r\t /");
 
             if (strlen($part) <= 0) {

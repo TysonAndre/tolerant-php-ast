@@ -78,6 +78,7 @@ class QualifiedName extends Node implements NamespacedNameInterface {
      *
      * @return null|string|ResolvedName
      * @throws \Exception
+     * @unused-param $namespaceDefinition not fully implemented?
      */
     public function getResolvedName($namespaceDefinition = null) {
         // Name resolution not applicable to constructs that define symbol names or aliases.
@@ -159,6 +160,7 @@ class QualifiedName extends Node implements NamespacedNameInterface {
      * @param ResolvedName[] $importTable
      * @param bool $isCaseSensitive
      * @return string|null
+     * @unused-param $isCaseSensitive not fully implemented
      */
     private function tryResolveFromImportTable($importTable, bool $isCaseSensitive = false) {
         $content = $this->getFileContents();
