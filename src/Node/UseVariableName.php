@@ -18,7 +18,12 @@ class UseVariableName extends Node {
     /** @var Token */
     public $variableName;
 
+    /**
+     * @return ?string
+     * @suppress PhanPartialTypeMismatchArgumentInternal
+     */
     public function getName() {
+        // extract varName from $varName in use($varName)
         if (
             $this->variableName instanceof Token &&
             $name = substr($this->variableName->getText($this->getFileContents()), 1)

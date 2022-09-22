@@ -33,12 +33,13 @@ class Token implements \JsonSerializable {
     }
 
     public function getLeadingCommentsAndWhitespaceText(string $document) : string {
+        // @phan-suppress-next-line PhanPossiblyFalseTypeReturn
         return substr($document, $this->fullStart, $this->start - $this->fullStart);
     }
 
     /**
      * @param string|null $document
-     * @return bool|null|string
+     * @return false|null|string
      */
     public function getText(string $document = null) {
         if ($document === null) {
@@ -48,6 +49,7 @@ class Token implements \JsonSerializable {
     }
 
     public function getFullText(string $document) : string {
+        // @phan-suppress-next-line PhanPossiblyFalseTypeReturn
         return substr($document, $this->fullStart, $this->length);
     }
 
@@ -88,6 +90,7 @@ class Token implements \JsonSerializable {
 
     /**
      * @return string[] - A hash map of the format [int $tokenKind => string $tokenName]
+     * @suppress PhanPartialTypeMismatchReturn not aware of getConstants for specific class
      */
     private static function getTokenKindNameFromValueMap() {
         static $mapToKindName;

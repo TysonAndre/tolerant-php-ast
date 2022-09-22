@@ -51,6 +51,7 @@ class BreakOrContinueStatement extends StatementNode {
             $firstTwoChars = \substr($literalString, 0, 2);
 
             if ($firstTwoChars === '0b' || $firstTwoChars === '0B') {
+                // @phan-suppress-next-line PhanPossiblyFalseTypeArgumentInternal this string is long enough
                 if (\bindec(\substr($literalString, 2)) > 0) {
                     return null;
                 }

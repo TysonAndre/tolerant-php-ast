@@ -46,7 +46,7 @@ class MethodDeclaration extends Node implements FunctionLike, ModifiedTypeInterf
      * @return string
      */
     public function getName(): string {
-        return $this->name->getText($this->getFileContents());
+        return $this->name ? (string) $this->name->getText($this->getFileContents()) : '';
     }
 
     /**

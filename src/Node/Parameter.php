@@ -49,6 +49,9 @@ class Parameter extends Node {
         return $this->byRefToken !== null;
     }
 
+    /**
+     * @suppress PhanPartialTypeMismatchArgumentInternal
+     */
     public function getName() {
         if (
             $this->variableName instanceof Token &&

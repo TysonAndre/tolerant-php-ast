@@ -117,6 +117,10 @@ use Phan\TolerantPhpAst\Node\TraitUseClause;
 use Phan\TolerantPhpAst\Node\UseVariableName;
 use Phan\TolerantPhpAst\Node\NamespaceUseClause;
 
+/**
+ * @phan-file-suppress PhanPossiblyUndeclaredPropertyOfClass, PhanPartialTypeMismatchProperty
+ * @phan-file-suppress PhanPossiblyNullTypeMismatchProperty
+ */
 class Parser {
     /** @var TokenStreamProviderInterface */
     private $lexer;
@@ -187,9 +191,10 @@ class Parser {
         if ($this->getCurrentToken()->kind !== TokenKind::EndOfFileToken) {
             $inlineHTML = $this->parseInlineHtml($sourceFile);
             $sourceFile->statementList[] = $inlineHTML;
-            if ($inlineHTML->echoStatement) {
-                $sourceFile->statementList[] = $inlineHTML->echoStatement;
-                $inlineHTML->echoStatement->parent = $sourceFile;
+            $echoStatement = $inlineHTML->echoStatement;
+            if ($echoStatement) {
+                $sourceFile->statementList[] = $echoStatement;
+                $echoStatement->parent = $sourceFile;
                 $inlineHTML->echoStatement = null;
             }
         }
@@ -232,10 +237,13 @@ class Parser {
                 $nodeArray[] = $element;
                 if ($element instanceof Node) {
                     $element->parent = $parentNode;
-                    if ($element instanceof InlineHtml && $element->echoStatement) {
-                        $nodeArray[] = $element->echoStatement;
-                        $element->echoStatement->parent = $parentNode;
-                        $element->echoStatement = null;
+                    if ($element instanceof InlineHtml) {
+                        $echoStatement = $element->echoStatement;
+                        if ($echoStatement) {
+                            $nodeArray[] = $echoStatement;
+                            $echoStatement->parent = $parentNode;
+                            $element->echoStatement = null;
+                        }
                     }
                 }
                 continue;
@@ -494,11 +502,17 @@ class Parser {
         $this->token = $this->lexer->scanNextToken();
     }
 
+    /**
+     * @return Node|SkippedToken|MissingToken
+     */
     private function parseStatement($parentNode) {
         return ($this->parseStatementFn())($parentNode);
     }
 
     private function parseStatementFn() {
+        /**
+         * @return Node|SkippedToken|MissingToken
+         */
         return function ($parentNode) {
             $token = $this->getCurrentToken();
             switch ($token->kind) {
@@ -708,7 +722,7 @@ class Parser {
     }
 
     /**
-     * @return Node
+     * @return Expression
      */
     private function parseAttributeExpression($parentNode) {
         $attributeGroups = $this->parseAttributeGroups(null);
@@ -731,12 +745,14 @@ class Parser {
                 $attributeGroup->parent = $expression;
             }
         }
+        // @phan-suppress-next-line PhanPartialTypeMismatchReturn no way to indicate relationship for token to result of parsePrimaryExpression
         return $expression;
     }
 
     /**
      * Precondition: The next token is an AttributeToken
      * @return Node
+     * @suppress PhanPartialTypeMismatchReturn see precondition
      */
     private function parseAttributeStatement($parentNode) {
         $attributeGroups = $this->parseAttributeGroups(null);
@@ -853,12 +869,14 @@ class Parser {
             $parameter->modifiers = $this->parseParameterModifiers() ?: null;
 
             $parameter->questionToken = $this->eatOptional1(TokenKind::QuestionToken);
-            $parameter->typeDeclarationList = $this->tryParseParameterTypeDeclarationList($parameter);
-            if ($parameter->typeDeclarationList) {
-                $children = $parameter->typeDeclarationList->children;
+            $typeDeclarationList = $this->tryParseParameterTypeDeclarationList($parameter);
+            if ($typeDeclarationList) {
+                $parameter->typeDeclarationList = $typeDeclarationList;
+                $children = $typeDeclarationList->children;
                 if (end($children) instanceof MissingToken && ($children[\count($children) - 2]->kind ?? null) === TokenKind::AmpersandToken) {
-                    array_pop($parameter->typeDeclarationList->children);
-                    $parameter->byRefToken = array_pop($parameter->typeDeclarationList->children);
+                    unset($children);
+                    array_pop($typeDeclarationList->children);
+                    $parameter->byRefToken = array_pop($typeDeclarationList->children);
                 }
             } elseif ($parameter->questionToken) {
                 // TODO ParameterType?
@@ -932,7 +950,7 @@ class Parser {
     /**
      * Parse a union type such as A, A|B, A&B, A|(B&C), rejecting invalid syntax combinations.
      *
-     * @param Node $parentNode
+     * @param Node|null $parentNode
      * @param Closure(Token):bool $isTypeStart
      * @param Closure(Node):(Node|Token|null) $parseType
      * @param int $expectedTypeKind expected kind for token type
@@ -1288,7 +1306,7 @@ class Parser {
 
     /**
      * @param Node $parentNode
-     * @return Token|MissingToken|Node
+     * @return MissingToken|Expression|QualifiedName
      */
     private function parsePrimaryExpression($parentNode) {
         $token = $this->getCurrentToken();
@@ -1302,6 +1320,7 @@ class Parser {
             case TokenKind::Name: // TODO Qualified name
             case TokenKind::BackslashToken:
             case TokenKind::NamespaceKeyword:
+                // @phan-suppress-next-line PhanPossiblyNullTypeReturn valid start token kind for qualified name
                 return $this->parseQualifiedName($parentNode);
 
             case TokenKind::DecimalLiteralToken: // TODO merge dec, oct, hex, bin, float -> NumericLiteral
@@ -1375,6 +1394,7 @@ class Parser {
             case TokenKind::NullReservedWord:
                 // handle `true::`, `true(`, `true\`
                 if ($this->lookahead([TokenKind::BackslashToken, TokenKind::ColonColonToken, TokenKind::OpenParenToken])) {
+                    // @phan-suppress-next-line PhanPossiblyNullTypeReturn valid start token kind for qualified name
                     return $this->parseQualifiedName($parentNode);
                 }
                 return $this->parseReservedWordExpression($parentNode);
@@ -1382,6 +1402,7 @@ class Parser {
                 return $this->parseMatchExpression($parentNode);
         }
         if (\in_array($token->kind, TokenStringMaps::RESERVED_WORDS)) {
+                // @phan-suppress-next-line PhanPossiblyNullTypeReturn valid start token kind for qualified name
             return $this->parseQualifiedName($parentNode);
         }
 
@@ -1790,17 +1811,18 @@ class Parser {
 
         $functionDeclaration->functionKeyword = $this->eat1(TokenKind::FunctionKeyword);
         $functionDeclaration->byRefToken = $this->eatOptional1(TokenKind::AmpersandToken);
-        $functionDeclaration->name = $isAnonymous
+        $functionDeclarationName = $isAnonymous
             ? $this->eatOptional($this->nameOrKeywordOrReservedWordTokens)
             : $this->eat($this->nameOrKeywordOrReservedWordTokens);
+        $functionDeclaration->name = $functionDeclarationName;
 
-        if (isset($functionDeclaration->name)) {
-            $functionDeclaration->name->kind = TokenKind::Name;
+        if (isset($functionDeclarationName)) {
+            $functionDeclarationName->kind = TokenKind::Name;
         }
 
-        if ($isAnonymous && isset($functionDeclaration->name)) {
+        if ($isAnonymous && isset($functionDeclarationName)) {
             // Anonymous functions should not have names
-            $functionDeclaration->name = new SkippedToken($functionDeclaration->name); // TODO instead handle this during post-walk
+            $functionDeclaration->name = new SkippedToken($functionDeclarationName); // TODO instead handle this during post-walk
         }
 
         $functionDeclaration->openParen = $this->eat1(TokenKind::OpenParenToken);
@@ -2027,7 +2049,7 @@ class Parser {
 
     /**
      * @param Node $parentNode
-     * @return Expression
+     * @return Expression|QualifiedName|MissingToken
      */
     private function parseUnaryExpressionOrHigher($parentNode) {
         $token = $this->getCurrentToken();
@@ -2254,6 +2276,7 @@ class Parser {
                 /** @var UnaryOpExpression $unaryExpression */
                 // @phan-suppress-next-line PhanPossiblyUndeclaredVariable set if $shouldOperatorTakePrecedenceOverUnary is true
                 $leftOperand->parent = $unaryExpression;
+                // @phan-suppress-next-line PhanPossiblyUndeclaredProperty
                 $unaryExpression->operand = $leftOperand;
                 // @phan-suppress-next-line PhanPossiblyUndeclaredVariable
                 $leftOperand = $unaryExpression;
@@ -3019,6 +3042,10 @@ class Parser {
         return $prefixUpdateExpression;
     }
 
+    /**
+     * @param Expression|QualifiedName|MissingToken $expression
+     * @return Expression|QualifiedName|MissingToken
+     */
     private function parsePostfixExpressionRest($expression, $allowUpdateExpression = true) {
         $tokenKind = $this->getCurrentToken()->kind;
 
@@ -3810,7 +3837,7 @@ class Parser {
     /**
      * @param Node $parentNode
      * @param Token[] $modifiers
-     * @param Token $questionToken
+     * @param Token|null $questionToken
      * @param DelimitedList\QualifiedNameList|null $typeDeclarationList
      */
     private function makeMissingMemberDeclaration($parentNode, $modifiers, $questionToken = null, $typeDeclarationList = null) {
@@ -3820,7 +3847,7 @@ class Parser {
         $missingTraitMemberDeclaration->questionToken = $questionToken;
         if ($typeDeclarationList) {
             $missingTraitMemberDeclaration->typeDeclarationList = $typeDeclarationList;
-            $missingTraitMemberDeclaration->typeDeclarationList->parent = $missingTraitMemberDeclaration;
+            $typeDeclarationList->parent = $missingTraitMemberDeclaration;
         } elseif ($questionToken) {
             $missingTraitMemberDeclaration->typeDeclarationList = new MissingToken(TokenKind::PropertyType, $this->token->fullStart);
         }
@@ -4044,13 +4071,13 @@ class Parser {
 
         $arrowFunction->functionKeyword = $this->eat1(TokenKind::FnKeyword);
         $arrowFunction->byRefToken = $this->eatOptional1(TokenKind::AmpersandToken);
-        $arrowFunction->name = $this->eatOptional($this->nameOrKeywordOrReservedWordTokens);
+        $arrowFunctionName = $this->eatOptional($this->nameOrKeywordOrReservedWordTokens);
 
-        if (isset($arrowFunction->name)) {
+        if ($arrowFunctionName) {
             // Anonymous functions should not have names.
             // This is based on the code for AnonymousFunctionCreationExpression.
-            $arrowFunction->name->kind = TokenKind::Name;
-            $arrowFunction->name = new SkippedToken($arrowFunction->name); // TODO instead handle this during post-walk
+            $arrowFunctionName->kind = TokenKind::Name;
+            $arrowFunction->name = new SkippedToken($arrowFunctionName); // TODO instead handle this during post-walk
         }
 
         $arrowFunction->openParen = $this->eat1(TokenKind::OpenParenToken);

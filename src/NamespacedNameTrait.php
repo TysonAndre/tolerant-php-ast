@@ -22,6 +22,7 @@ trait NamespacedNameTrait {
      * that is resolved during compilation or at runtime. For that, see QualifiedName::getResolvedName().
      *
      * @return ResolvedName
+     * @suppress PhanPossiblyUndeclaredPropertyOfClass all implementations using this trait have $this->parent
      */
     public function getNamespacedName() : ResolvedName {
         $namespaceDefinition = $this->getNamespaceDefinition();

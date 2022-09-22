@@ -21,6 +21,9 @@ class Variable extends Expression {
         'name'
     ];
 
+    /**
+     * @suppress PhanPartialTypeMismatchArgumentInternal
+     */
     public function getName() {
         if (
             $this->name instanceof Token &&

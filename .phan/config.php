@@ -25,6 +25,13 @@ use \Phan\Issue;
  * '-d' flag.
  */
 $config = [
+    // The PHP version that will be used for feature/syntax compatibility warnings.
+    // Supported values: `'5.6'`, `'7.0'`, `'7.1'`, `'7.2'`, `'7.3'`, `'7.4'`,
+    // `'8.0'`, `'8.1'`, `null`.
+    // If this is set to `null`, Phan will first attempt to infer the value from
+    // the project's composer.json's `{"require": {"php": "version range"}}` if possible.
+    // If that could not be determined, then Phan assumes `target_php_version`.
+    'minimum_target_php_version' => '7.2',
 
     // If true, missing properties will be created when
     // they are first seen. If false, we'll report an
@@ -34,6 +41,37 @@ $config = [
     // Allow null to be cast as any type and for any
     // type to be cast to null.
     "null_casts_as_any_type" => false,
+
+    // If enabled, Phan will warn if **any** type in a method invocation's object
+    // is definitely not an object,
+    // or if **any** type in an invoked expression is not a callable.
+    // Setting this to true will introduce numerous false positives
+    // (and reveal some bugs).
+    'strict_method_checking' => true,
+
+    // If enabled, Phan will warn if **any** type in the argument's union type
+    // cannot be cast to a type in the parameter's expected union type.
+    // Setting this to true will introduce numerous false positives
+    // (and reveal some bugs).
+    'strict_param_checking' => true,
+
+    // If enabled, Phan will warn if **any** type in a property assignment's union type
+    // cannot be cast to a type in the property's declared union type.
+    // Setting this to true will introduce numerous false positives
+    // (and reveal some bugs).
+    // (For self-analysis, Phan has a large number of suppressions and file-level suppressions, due to \ast\Node being difficult to type check)
+    'strict_property_checking' => true,
+
+    // If enabled, Phan will warn if **any** type in a returned value's union type
+    // cannot be cast to the declared return type.
+    // Setting this to true will introduce numerous false positives
+    // (and reveal some bugs).
+    // (For self-analysis, Phan has a large number of suppressions and file-level suppressions, due to \ast\Node being difficult to type check)
+    'strict_return_checking' => true,
+
+    // If enabled, Phan will warn if **any** type of the object expression for a property access
+    // does not contain that property.
+    'strict_object_checking' => true,
 
     // If enabled, scalars (int, float, bool, string, null)
     // are treated as if they can cast to each other.

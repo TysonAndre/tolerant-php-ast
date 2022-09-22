@@ -79,6 +79,7 @@ class QualifiedName extends Node implements NamespacedNameInterface {
      * @return null|string|ResolvedName
      * @throws \Exception
      * @unused-param $namespaceDefinition not fully implemented?
+     * @suppress PhanPossiblyNonClassMethodCall, PhanPossiblyUndeclaredProperty
      */
     public function getResolvedName($namespaceDefinition = null) {
         // Name resolution not applicable to constructs that define symbol names or aliases.

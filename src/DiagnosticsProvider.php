@@ -11,7 +11,7 @@ use Phan\TolerantPhpAst\Node;
 class DiagnosticsProvider {
 
     /**
-     * @var string[] maps the token kind to the corresponding name
+     * @var array<int,string> maps the token kind to the corresponding name
      */
     private static $tokenKindToText;
 
@@ -26,6 +26,7 @@ class DiagnosticsProvider {
     /**
      * This is called when this class is loaded, at the bottom of this file.
      * @return void
+     * @suppress PhanPartialTypeMismatchProperty limitation of inference of array_flip/array_merge?
      */
     public static function initTokenKindToText() {
         self::$tokenKindToText = \array_flip(\array_merge(

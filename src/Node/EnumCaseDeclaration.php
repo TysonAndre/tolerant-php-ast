@@ -16,7 +16,7 @@ class EnumCaseDeclaration extends Node {
     /** @var Token */
     public $caseKeyword;
 
-    /** @var Token */
+    /** @var QualifiedName */
     public $name;
 
     /** @var Token|null */

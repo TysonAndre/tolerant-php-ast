@@ -23,6 +23,7 @@ abstract class Node implements \JsonSerializable {
 
     public function getNodeKindName() : string {
         // Use strrpos (rather than explode) to avoid creating a temporary array.
+        // @phan-suppress-next-line PhanPossiblyFalseTypeReturn, PhanPartialTypeMismatchArgumentInternal
         return substr(static::class, strrpos(static::class, "\\") + 1);
     }
 
@@ -340,6 +341,7 @@ abstract class Node implements \JsonSerializable {
     /**
      * Gets string representing Node text (not including leading comment + whitespace trivia)
      * @return string
+     * @suppress PhanPossiblyFalseTypeReturn
      */
     public function getText() : string {
         $start = $this->getStartPosition();
@@ -352,6 +354,7 @@ abstract class Node implements \JsonSerializable {
     /**
      * Gets full text of Node (including leading comment + whitespace trivia)
      * @return string
+     * @suppress PhanPossiblyFalseTypeReturn
      */
     public function getFullText() : string {
         $start = $this->getFullStartPosition();
@@ -462,6 +465,7 @@ abstract class Node implements \JsonSerializable {
      * and returns null if there is no preceding doc comment.
      *
      * @return string|null
+     * @suppress PhanPossiblyFalseTypeReturn
      */
     public function getDocCommentText() {
         $leadingTriviaText = $this->getLeadingCommentAndWhitespaceText();
@@ -484,6 +488,7 @@ abstract class Node implements \JsonSerializable {
     /**
      * @return array|ResolvedName[][]
      * @throws \Exception
+     * @suppress PhanPossiblyUndeclaredPropertyOfClass
      */
     public function getImportTablesForCurrentScope() {
         $namespaceDefinition = $this->getNamespaceDefinition();
@@ -543,7 +548,7 @@ abstract class Node implements \JsonSerializable {
                     // use A\B\C\{D\E as F};            namespace import: ["F" => [A,B,C,D,E]]
                     // use function A\B\C\{A, B}        function import: ["A" => [A,B,C,A], "B" => [A,B,C]]
                     // use function A\B\C\{const A}     const import: ["A" => [A,B,C,A]]
-                    foreach ($useClause->groupClauses->children as $groupClause) {
+                    foreach ($useClause->groupClauses->children ?? [] as $groupClause) {
                         if (!($groupClause instanceof NamespaceUseGroupClause)) {
                             continue;
                         }
@@ -584,6 +589,7 @@ abstract class Node implements \JsonSerializable {
      * Gets corresponding NamespaceDefinition for Node. Returns null if in global namespace.
      *
      * @return NamespaceDefinition|null
+     * @suppress PhanPartialTypeMismatchReturn unable to infer type of getFirstAncestor
      */
     public function getNamespaceDefinition() {
         $namespaceDefinition = ($this instanceof NamespaceDefinition || $this instanceof SourceFileNode)

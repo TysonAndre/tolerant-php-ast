@@ -36,6 +36,7 @@ class StringLiteral extends Expression {
             }
         } else {
             // TODO ensure string consistency (all strings should have start / end quote)
+            // @phan-suppress-next-line PhanPossiblyNonClassMethodCall, PhanPartialTypeMismatchArgumentInternal
             $stringContents = trim($this->children->getText($this->getFileContents()), '"\'');
         }
         return $stringContents;
