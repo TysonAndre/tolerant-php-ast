@@ -1,6 +1,6 @@
 {
     "name": "phan/tolerant-php-ast",
-    "description": "Tolerant PHP-to-AST parser designed for IDE usage scenarios",
+    "description": "Tolerant PHP-to-AST parser designed for php-ast polyfill and IDE usage scenarios",
     "type": "library",
     "require": {
         "php": ">=7.2"
@@ -13,6 +13,9 @@
         {
             "name": "Rob Lourens",
             "email": "roblou@microsoft.com"
+        },
+        {
+            "name": "Tyson Andre"
         }
     ],
     "autoload": {
