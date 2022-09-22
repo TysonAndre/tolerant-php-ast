@@ -20,7 +20,7 @@ class UseVariableName extends Node {
 
     /**
      * @return ?string
-     * @suppress PhanPartialTypeMismatchArgumentInternal
+     * @suppress PhanPartialTypeMismatchArgumentInternal, PhanSuspiciousTruthyString
      */
     public function getName() {
         // extract varName from $varName in use($varName)

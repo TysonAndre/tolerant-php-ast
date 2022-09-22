@@ -22,7 +22,7 @@ class Variable extends Expression {
     ];
 
     /**
-     * @suppress PhanPartialTypeMismatchArgumentInternal
+     * @suppress PhanPartialTypeMismatchArgumentInternal, PhanSuspiciousTruthyString not an issue in practice
      */
     public function getName() {
         if (

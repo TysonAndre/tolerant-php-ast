@@ -86,11 +86,46 @@ $config = [
     // Backwards Compatibility Checking
     'backward_compatibility_checks' => false,
 
+    // If true, check to make sure the return type declared
+    // in the doc-block (if any) matches the return type
+    // declared in the method signature.
+    'check_docblock_signature_return_type_match' => true,
+
+    // If true, check to make sure the param types declared
+    // in the doc-block (if any) matches the param types
+    // declared in the method signature.
+    'check_docblock_signature_param_type_match' => true,
+
+    // If true, make narrowed types from phpdoc params override
+    // the real types from the signature, when real types exist.
+    // (E.g. allows specifying desired lists of subclasses,
+    //  or to indicate a preference for non-nullable types over nullable types)
+    //
+    // Affects analysis of the body of the method and the param types passed in by callers.
+    //
+    // (*Requires `check_docblock_signature_param_type_match` to be true*)
+    'prefer_narrowed_phpdoc_param_type' => true,
+
+    // (*Requires `check_docblock_signature_return_type_match` to be true*)
+    //
+    // If true, make narrowed types from phpdoc returns override
+    // the real types from the signature, when real types exist.
+    //
+    // (E.g. allows specifying desired lists of subclasses,
+    //  or to indicate a preference for non-nullable types over nullable types)
+    // Affects analysis of return statements in the body of the method and the return types passed in by callers.
+    'prefer_narrowed_phpdoc_return_type' => true,
+
     // If enabled, check all methods that override a
     // parent method to make sure its signature is
     // compatible with the parent's. This check
     // can add quite a bit of time to the analysis.
     'analyze_signature_compatibility' => true,
+
+    // Set this to true to enable the plugins that Phan uses to infer more accurate return types of `implode`, `json_decode`, and many other functions.
+    //
+    // Phan is slightly faster when these are disabled.
+    'enable_extended_internal_return_type_plugins' => true,
 
     // Set to true in order to attempt to detect dead
     // (unreferenced) code. Keep in mind that the
@@ -107,6 +142,22 @@ $config = [
     // time
     "quick_mode" => false,
 
+
+    // Set to true in order to attempt to detect redundant and impossible conditions.
+    //
+    // This has some false positives involving loops,
+    // variables set in branches of loops, and global variables.
+    'redundant_condition_detection' => true,
+
+    // Set to true in order to attempt to detect error-prone truthiness/falsiness checks.
+    //
+    // This is not suitable for all codebases.
+    'error_prone_truthy_condition_detection' => true,
+
+    // Enable this to warn about harmless redundant use for classes and namespaces such as `use Foo\bar` in namespace Foo.
+    //
+    // Note: This does not affect warnings about redundant uses in the global namespace.
+    'warn_about_redundant_use_namespaced_class' => true,
     // Enable or disable support for generic templated
     // class types.
     'generic_types_enabled' => true,
@@ -177,6 +228,31 @@ $config = [
         'DuplicateArrayKeyPlugin',
         'PregRegexCheckerPlugin',
         'PrintfCheckerPlugin',
+        'UseReturnValuePlugin',
+
+        'DuplicateExpressionPlugin',
+        // warns about carriage returns("\r"), trailing whitespace, and tabs in PHP files.
+        'WhitespacePlugin',
+        // Warn about inline HTML anywhere in the files.
+        'InlineHTMLPlugin',
+        // 'PossiblyStaticMethodPlugin',
+
+        'PreferNamespaceUsePlugin',
+        'EmptyStatementListPlugin',
+
+        // Report empty (not overridden or overriding) methods and functions
+        // 'EmptyMethodAndFunctionPlugin',
+
+        // Warn about using the same loop variable name as a loop variable of an outer loop.
+        'LoopVariableReusePlugin',
+        // Warn about assigning the value the variable already had to that variable.
+        'RedundantAssignmentPlugin',
+        'StrictComparisonPlugin',
+        // Warn about `$var == SOME_INT_OR_STRING_CONST` due to unintuitive behavior such as `0 == 'a'`
+        'StrictLiteralComparisonPlugin',
+        'ShortArrayPlugin',
+        'SimplifyExpressionPlugin',
+        'DeprecateAliasPlugin',
     ],
 
 ];

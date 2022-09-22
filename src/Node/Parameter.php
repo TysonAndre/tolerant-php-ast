@@ -50,7 +50,7 @@ class Parameter extends Node {
     }
 
     /**
-     * @suppress PhanPartialTypeMismatchArgumentInternal
+     * @suppress PhanPartialTypeMismatchArgumentInternal, PhanSuspiciousTruthyString
      */
     public function getName() {
         if (

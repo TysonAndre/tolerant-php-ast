@@ -24,7 +24,7 @@ abstract class DelimitedList extends Node {
         foreach ($this->children as $child) {
             if ($child instanceof Node) {
                 yield $child;
-            } elseif ($child instanceof Token && !\in_array($child->kind, self::DELIMITERS)) {
+            } elseif ($child instanceof Token && !\in_array($child->kind, self::DELIMITERS, true)) {
                 yield $child;
             }
         }
@@ -32,7 +32,7 @@ abstract class DelimitedList extends Node {
 
     public function getValues() {
         foreach ($this->children as $idx=>$value) {
-            if ($idx % 2 == 0) {
+            if ($idx % 2 === 0) {
                 yield $value;
             }
         }

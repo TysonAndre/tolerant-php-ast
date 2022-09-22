@@ -472,7 +472,7 @@ class Parser {
         if (\is_array($kinds[0])) {
             $kinds = $kinds[0];
         }
-        if (\in_array($token->kind, $kinds)) {
+        if (\in_array($token->kind, $kinds, true)) {
             $this->token = $this->lexer->scanNextToken();
             return $token;
         }
@@ -1401,7 +1401,7 @@ class Parser {
             case TokenKind::MatchKeyword:
                 return $this->parseMatchExpression($parentNode);
         }
-        if (\in_array($token->kind, TokenStringMaps::RESERVED_WORDS)) {
+        if (\in_array($token->kind, TokenStringMaps::RESERVED_WORDS, true)) {
                 // @phan-suppress-next-line PhanPossiblyNullTypeReturn valid start token kind for qualified name
             return $this->parseQualifiedName($parentNode);
         }
@@ -1768,8 +1768,8 @@ class Parser {
                         // a\static::b <-VALID
                         // TODO more tests
                         return $this->lookahead(TokenKind::BackslashToken)
-                            ? in_array($token->kind, $this->nameOrReservedWordTokens)
-                            : in_array($token->kind, $this->nameOrStaticOrReservedWordTokens);
+                            ? in_array($token->kind, $this->nameOrReservedWordTokens, true)
+                            : in_array($token->kind, $this->nameOrStaticOrReservedWordTokens, true);
                     },
                     /**
                      * @unused-param $parentNode
@@ -3126,7 +3126,7 @@ class Parser {
                 return $this->parseBracedExpression($parentNode);
 
             default:
-                if (\in_array($token->kind, $this->nameOrKeywordOrReservedWordTokens)) {
+                if (\in_array($token->kind, $this->nameOrKeywordOrReservedWordTokens, true)) {
                     $this->advanceToken();
                     $token->kind = TokenKind::Name;
                     return $token;
@@ -3151,7 +3151,7 @@ class Parser {
             if ($nextToken && $nextToken->kind === TokenKind::ColonToken) {
                 $name = $this->token;
                 $this->advanceToken();
-                if ($name->kind === TokenKind::YieldFromKeyword || !\in_array($name->kind, $this->nameOrKeywordOrReservedWordTokens)) {
+                if ($name->kind === TokenKind::YieldFromKeyword || !\in_array($name->kind, $this->nameOrKeywordOrReservedWordTokens, true)) {
                     $name = new SkippedToken($name);
                 } else {
                     $name->kind = TokenKind::Name;
@@ -3986,7 +3986,7 @@ class Parser {
             DelimitedList\ConstElementList::class,
             TokenKind::CommaToken,
             function ($token) {
-                return \in_array($token->kind, $this->nameOrKeywordOrReservedWordTokens);
+                return \in_array($token->kind, $this->nameOrKeywordOrReservedWordTokens, true);
             },
             $this->parseConstElementFn(),
             $parentNode

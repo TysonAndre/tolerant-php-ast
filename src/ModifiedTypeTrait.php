@@ -9,7 +9,7 @@ namespace Phan\TolerantPhpAst;
 trait ModifiedTypeTrait {
     /** @var Token[] */
     public $modifiers;
-    
+
     public function hasModifier(int $targetModifier): bool {
         if ($this->modifiers === null) {
             return false;
