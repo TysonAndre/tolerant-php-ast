@@ -1,3 +1,9 @@
+# Tolerant PHP AST
+
+This is an experimental fork of [Microsoft/tolerant-php-parser](https://github.com/microsoft/tolerant-php-parser) for which generating `ast\Node` instances from https://github.com/nikic/php-ast is also planned.
+
+**The original README is below.**
+
 # Tolerant PHP Parser
 [![Build Status](https://travis-ci.org/Microsoft/tolerant-php-parser.svg?branch=master)](https://travis-ci.org/Microsoft/tolerant-php-parser)
 
@@ -17,7 +23,7 @@ with the Abstract Syntax Tree (AST) via a friendly API.
 // Autoload required classes
 require __DIR__ . "/vendor/autoload.php";
 
-use Microsoft\PhpParser\{DiagnosticsProvider, Node, Parser, PositionUtilities};
+use Phan\TolerantPhpAst\{DiagnosticsProvider, Node, Parser, PositionUtilities};
 
 // Instantiate new parser instance
 $parser = new Parser();
