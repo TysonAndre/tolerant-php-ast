@@ -3390,18 +3390,18 @@ class Parser {
     }
 
     private function parseEnumCaseDeclaration($parentNode) {
-        $classConstDeclaration = new EnumCaseDeclaration();
-        $classConstDeclaration->parent = $parentNode;
-        $classConstDeclaration->caseKeyword = $this->eat1(TokenKind::CaseKeyword);
-        $classConstDeclaration->name = $this->eat($this->nameOrKeywordOrReservedWordTokens);
-        $classConstDeclaration->equalsToken = $this->eatOptional1(TokenKind::EqualsToken);
-        if ($classConstDeclaration->equalsToken !== null) {
+        $enumCaseDeclaration = new EnumCaseDeclaration();
+        $enumCaseDeclaration->parent = $parentNode;
+        $enumCaseDeclaration->caseKeyword = $this->eat1(TokenKind::CaseKeyword);
+        $enumCaseDeclaration->name = $this->eat($this->nameOrKeywordOrReservedWordTokens);
+        $enumCaseDeclaration->equalsToken = $this->eatOptional1(TokenKind::EqualsToken);
+        if ($enumCaseDeclaration->equalsToken !== null) {
             // TODO add post-parse rule that checks for invalid assignments
-            $classConstDeclaration->assignment = $this->parseExpression($classConstDeclaration);
+            $enumCaseDeclaration->assignment = $this->parseExpression($enumCaseDeclaration);
         }
-        $classConstDeclaration->semicolon = $this->eat1(TokenKind::SemicolonToken);
+        $enumCaseDeclaration->semicolon = $this->eat1(TokenKind::SemicolonToken);
 
-        return $classConstDeclaration;
+        return $enumCaseDeclaration;
     }
 
     /**
