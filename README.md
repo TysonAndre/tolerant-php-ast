@@ -1,11 +1,12 @@
 # Tolerant PHP AST
 
+[![Build Status](https://github.com/TysonAndre/tolerant-php-ast/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/TysonAndre/tolerant-php-ast/actions/workflows/main.yml?query=branch%3Amain)
+
 This is an experimental fork of [Microsoft/tolerant-php-parser](https://github.com/microsoft/tolerant-php-parser) for which generating `ast\Node` instances from https://github.com/nikic/php-ast is also planned.
 
-**The original README is below.**
+**The original README of Tolerant PHP Parser is below.** (with modifications for snippets on using tolerant-php-ast)
 
 # Tolerant PHP Parser
-[![Build Status](https://github.com/microsoft/tolerant-php-parser/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/microsoft/tolerant-php-parser/actions/workflows/main.yml?query=branch%3Amain)
 
 This is an early-stage PHP parser designed, from the beginning, for IDE usage scenarios (see [Design Goals](#design-goals) for more details). There is
 still a ton of work to be done, so at this point, this repo mostly serves as
